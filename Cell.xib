@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="176" id="KGk-i7-Jjw" customClass="Cell" customModule="CustomTransitionsSwift2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="429" height="186"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="429" height="185"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rGc-7I-4Fj">
+                        <rect key="frame" x="5" y="5" width="204.5" height="176"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dmj-XU-uZK">
+                        <rect key="frame" x="219.5" y="5" width="204.5" height="176"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Dmj-XU-uZK" secondAttribute="bottom" constant="5" id="81P-qn-mvc"/>
+                    <constraint firstAttribute="bottom" secondItem="rGc-7I-4Fj" secondAttribute="bottom" constant="5" id="H6h-de-71n"/>
+                    <constraint firstAttribute="trailing" secondItem="Dmj-XU-uZK" secondAttribute="trailing" constant="5" id="L0d-rh-pUY"/>
+                    <constraint firstItem="rGc-7I-4Fj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="W9G-Wn-et3"/>
+                    <constraint firstItem="Dmj-XU-uZK" firstAttribute="width" secondItem="rGc-7I-4Fj" secondAttribute="width" id="Y59-jI-cKs"/>
+                    <constraint firstItem="rGc-7I-4Fj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="hSg-CT-RyB"/>
+                    <constraint firstItem="Dmj-XU-uZK" firstAttribute="leading" secondItem="rGc-7I-4Fj" secondAttribute="trailing" constant="10" id="jZp-Y0-WCi"/>
+                    <constraint firstItem="Dmj-XU-uZK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="mip-L7-seX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="firstImage" destination="rGc-7I-4Fj" id="MJd-gr-HgB"/>
+                <outlet property="secondImage" destination="Dmj-XU-uZK" id="evj-s9-MQA"/>
+            </connections>
+            <point key="canvasLocation" x="-11.5" y="110"/>
+        </tableViewCell>
+    </objects>
+</document>
