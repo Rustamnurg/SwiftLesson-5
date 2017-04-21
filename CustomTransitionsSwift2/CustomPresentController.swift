@@ -73,8 +73,6 @@ class CustomPresentController: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(true)
             lToVC.view.frame = finalFrameForVC
             imagesView.removeFromSuperview()
-            //UIApplication.shared.keyWindow!.addSubview((toViewController?.view)!)
-            
         }
         
     }
