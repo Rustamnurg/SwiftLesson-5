@@ -10,11 +10,21 @@ import Foundation
 import UIKit
 
 class CustomDismissController: NSObject, UIViewControllerAnimatedTransitioning  {
-   
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 2.0
+    
+    var viewPosition = ViewPosition()
+    fileprivate var duration: TimeInterval
+    fileprivate var presentedImage: UIImage
+    
+    init(withDuration duration: TimeInterval, presentedImage: UIImage, viewPosition: ViewPosition) {
+        self.duration = duration
+        self.presentedImage = presentedImage
+        self.viewPosition = viewPosition
+        super.init()
     }
     
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return duration
+    }
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         let fromViewController = transitionContext.viewController(forKey: .from)
@@ -29,26 +39,25 @@ class CustomDismissController: NSObject, UIViewControllerAnimatedTransitioning  
             else { return }
         
         lToVC.view.frame = finalFrameForVC
-        lToVC.view.alpha = 0.5
+        let bounds = UIScreen.main.bounds
+        let imageView = UIImageView(image: presentedImage)
+        imageView.frame = CGRect(x: 5, y: Int(bounds.size.height/5), width: Int(bounds.size.width-10), height: Int(bounds.size.height*0.6))
         
         containerView.addSubview(lToVC.view)
+        containerView.addSubview(imageView)
         containerView.sendSubview(toBack: lToVC.view)
         
-        let snapShotView = lFromVC.view.snapshotView(afterScreenUpdates: false)
-        snapShotView?.frame = lFromVC.view.frame
-        containerView.addSubview(snapShotView!)
-        
         lFromVC.view.removeFromSuperview()
-        
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
-            
-            lToVC.view.alpha = 1.0
-            snapShotView?.frame = lFromVC.view.frame.insetBy(dx: lFromVC.view.frame.width / 2, dy:lFromVC.view.frame.height/2)
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
+            imageView.frame = CGRect(x: self.viewPosition.xPosition, y: self.viewPosition.yPosition+5, width: self.viewPosition.widht, height: self.viewPosition.height)
             
         }) { (finished) in
             
-            snapShotView?.removeFromSuperview()
+            imageView.removeFromSuperview()
             transitionContext.completeTransition(true)
         }
     }
+    
+    
+    
 }

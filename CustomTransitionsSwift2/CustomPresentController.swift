@@ -9,16 +9,18 @@
 import Foundation
 import UIKit
 
+
+
 class CustomPresentController: NSObject, UIViewControllerAnimatedTransitioning {
+    
     var viewPosition = ViewPosition()
-    
     fileprivate var duration: TimeInterval
-    fileprivate var presentedImageView: UIImageView
+    fileprivate var presentedImage: UIImage
     
-    init(withDuration duration: TimeInterval, presentedImageView:UIImageView) {
+    init(withDuration duration: TimeInterval, presentedImage: UIImage, viewPosition: ViewPosition) {
         self.duration = duration
-        self.presentedImageView = presentedImageView
-        
+        self.presentedImage = presentedImage
+        self.viewPosition = viewPosition
         super.init()
     }
     
@@ -30,6 +32,10 @@ class CustomPresentController: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         print(viewPosition)
+
+        
+        
+        
         
         let fromViewController = transitionContext.viewController(forKey: .from)
         let toViewController = transitionContext.viewController(forKey: .to)
@@ -40,22 +46,36 @@ class CustomPresentController: NSObject, UIViewControllerAnimatedTransitioning {
         let bounds = UIScreen.main.bounds
         
         guard let lFromVC = fromViewController,
-              let lToVC = toViewController
-        else { return }
+            let lToVC = toViewController
+            else {return }
         
+        let snapShotView = lFromVC.view.snapshotView(afterScreenUpdates: false)
+        snapShotView?.frame = lFromVC.view.frame
+        snapShotView?.backgroundColor = UIColor.black
+        snapShotView?.isOpaque = false
+
         lToVC.view.frame = finalFrameForVC.offsetBy(dx:0, dy: bounds.size.height)
         
-        containerView.addSubview(lToVC.view)
+        let imagesView = UIImageView(image: presentedImage)
+        imagesView.frame = CGRect(x: viewPosition.xPosition, y: viewPosition.yPosition, width: viewPosition.widht, height: viewPosition.height)
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveLinear, animations: { 
-            
-
-            lFromVC.view.alpha = 0.5
-            lToVC.view.frame = finalFrameForVC
+        containerView.addSubview(snapShotView!)
+        containerView.addSubview(lToVC.view)
+        containerView.addSubview(imagesView)
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
+            fromViewController?.view.removeFromSuperview()
+            containerView.backgroundColor = UIColor.black
+            imagesView.frame = CGRect(x: 5, y: Int(bounds.size.height/5), width: Int(bounds.size.width-10), height: Int(bounds.size.height*0.6))
+            snapShotView?.alpha = 0.05
             
         }) { (finished) in
             transitionContext.completeTransition(true)
-            lFromVC.view.alpha = 1.0
+            lToVC.view.frame = finalFrameForVC
+            imagesView.removeFromSuperview()
+            //UIApplication.shared.keyWindow!.addSubview((toViewController?.view)!)
+            
         }
+        
     }
 }

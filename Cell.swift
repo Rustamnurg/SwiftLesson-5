@@ -29,18 +29,13 @@ class Cell: UITableViewCell {
     
     func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         let tappedImage = tapGestureRecognizer.view as! UIImageView
-        
-     
-        
-        
-        handSelectedImagesDelegate?.selectedImage(image: tappedImage.image!, imagePosition: ViewPosition(height: Int(tappedImage.frame.height), widht: Int(tappedImage.frame.width), xPosition: Int(tappedImage.frame.origin.x), yPosition: Int(tappedImage.frame.origin.y)), tag: self.tag)
+        let viewPosition = ViewPosition(height: Int(tappedImage.frame.height), widht: Int(tappedImage.frame.width), xPosition: Int(tappedImage.frame.origin.x), yPosition: Int(tappedImage.frame.origin.y))
+        handSelectedImagesDelegate?.selectedImage(image: tappedImage.image!, imagePosition: viewPosition, tag: self.tag)
     }
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     
